@@ -1,0 +1,6 @@
+# TLA+ generated files
+*.out
+*.old
+*.log
+*.aux
+states
