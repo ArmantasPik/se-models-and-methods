@@ -65,8 +65,7 @@ Init ==
 InitiatorSend ==
   /\ Initiator \notin done
   /\ msgSent' = msgSent \cup {<<Initiator, n>> : n \in Topology[Initiator]}
-  /\ done' = done \cup {Initiator}
-  /\ UNCHANGED <<ackSent, visited, parent, children>>
+  /\ UNCHANGED <<ackSent, visited, parent, children, done>>
 
 \* A node receives its first message and forwards to other neighbors
 FirstReceive(n) ==
@@ -83,11 +82,16 @@ FirstReceive(n) ==
 SendAck(n) ==
   /\ n \in visited
   /\ n \notin done
-  /\ n # Initiator
-  /\ \A nbr \in Topology[n] : (nbr = parent[n]) \/ <<nbr, n>> \in msgSent
-  /\ ackSent' = ackSent \cup {<<n, parent[n]>>}
-  /\ done' = done \cup {n}
+\*   /\ n # Initiator
+  /\ \A nbr \in Topology[n] : (nbr = parent[n]) \/ <<nbr, n>> \in msgSent \/ <<nbr, n>> \in ackSent
+  /\ IF n # Initiator
+        THEN /\ ackSent' = ackSent \cup {<<n, parent[n]>>}
+             /\ done' = done \cup {n}
+        ELSE /\ ackSent' = ackSent
+             /\ done' = done \cup {n}
   /\ UNCHANGED <<msgSent, visited, parent, children>>
+\*   /\ ackSent' = ackSent \cup {<<n, parent[n]>>}
+\*   /\ done' = done \cup {n}
 
 \* A node receives acknowledgment from a child and updates its children set
 ReceiveAck(n) ==
@@ -98,12 +102,17 @@ ReceiveAck(n) ==
       /\ children' = [children EXCEPT ![n] = @ \cup {child}]
   /\ UNCHANGED <<msgSent, ackSent, visited, parent, done>>
 
+Terminating ==
+  /\ done = Nodes
+  /\ UNCHANGED vars
+
 \* Combined next-state relation
 Next ==
   \/ InitiatorSend
   \/ \E n \in Nodes \ {Initiator} : FirstReceive(n)
   \/ \E n \in Nodes \ {Initiator} : SendAck(n)
   \/ \E n \in Nodes : ReceiveAck(n)
+  \/ Terminating
 
 \* Complete specification
 Spec == Init /\ [][Next]_vars
