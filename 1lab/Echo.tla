@@ -1,6 +1,6 @@
 ----------------------------- MODULE Echo -----------------------------
 \*  Echo algorithm model. Constructs a spanning tree in an unidrected graph.  */
-\*  Starts from a signle initiator that send messages to all neighbors.       */
+\*  Starts from a single initiator that send messages to all neighbors.       */
 EXTENDS Naturals, FiniteSets, Connectivity, TLC
 
 CONSTANTS 
