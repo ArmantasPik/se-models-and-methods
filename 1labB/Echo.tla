@@ -96,6 +96,8 @@ TypeOK ==
     /\ ackSent \subseteq (Nodes \X Nodes)
     /\ visited \subseteq Nodes
     /\ done \subseteq Nodes
+    /\ done \subseteq visited
+    /\ \A n \in done : \A m \in Topology[n] : m \in visited
     /\ parent \in [Nodes -> (Nodes \cup {NULL})]
     /\ children \in [Nodes -> SUBSET Nodes]
     /\ \A pair \in msgSent : pair[2] \in Topology[pair[1]]
