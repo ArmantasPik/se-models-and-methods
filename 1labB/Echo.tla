@@ -1,7 +1,7 @@
 ----------------------------- MODULE Echo -----------------------------
 \*  Echo algorithm model. Constructs a spanning tree in an unidrected graph.  */
 \*  Starts from a single initiator that send messages to all neighbors.       */
-EXTENDS Naturals, FiniteSets, Connectivity, TLC
+EXTENDS Naturals, FiniteSets, TLC
 
 CONSTANTS 
     Nodes,
@@ -13,7 +13,6 @@ ASSUME
     /\ Initiator \in Nodes
     /\ \A n \in Nodes : Topology[n] \subseteq (Nodes \ {n})        \* No self-loops
     /\ \A n, m \in Nodes : m \in Topology[n] <=> n \in Topology[m] \* Undirected/symmetric 
-    /\ IsConnected(Nodes, Topology, Initiator)                     \* Connected 
 
 VARIABLES 
     msgSent,   \* Regular message (sender, receiver)

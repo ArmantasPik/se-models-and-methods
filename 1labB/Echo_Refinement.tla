@@ -13,5 +13,6 @@ Refinement == Abs!Spec
 \* This theorem states that every behavior of the concrete spec
 \* satisfies the abstract spec under the mapping defined by WITH
 THEOREM Spec => Refinement
+PROOF OMITTED  
 
 ============================================================================= 

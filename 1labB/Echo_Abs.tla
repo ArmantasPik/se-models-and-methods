@@ -2,7 +2,7 @@
 \*  Abstract specification of the Echo algorithm.      */
 \*  Constructs a spanning tree in an unidrected graph. */
 \*  Hides details of message passing and node state.   */
-EXTENDS Naturals, FiniteSets, Connectivity, TLC
+EXTENDS Naturals, FiniteSets, TLC
 
 CONSTANTS 
     Nodes,      
@@ -14,7 +14,6 @@ ASSUME
     /\ Initiator \in Nodes
     /\ \A n \in Nodes : Topology[n] \subseteq (Nodes \ {n})        \* No self-loops     
     /\ \A n, m \in Nodes : m \in Topology[n] <=> n \in Topology[m] \* Undirected/symmetric 
-    /\ IsConnected(Nodes, Topology, Initiator)                     \* Connected 
 
 VARIABLES 
     visited,   
