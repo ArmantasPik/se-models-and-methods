@@ -115,10 +115,10 @@ THEOREM TypeOKInvariant == Spec => []TypeOK
         <2>2. ackSent = {} => ackSent \subseteq (Nodes \X Nodes)
             BY DEF Init
         <2>3. visited = {Initiator} => visited \subseteq Nodes
-            OBVIOUS
+            BY Initiator \in Nodes
         <2>4. done = {} => done \subseteq Nodes
             BY DEF Init
-        <2>5. done = {} => done \subseteq visited
+        <2>5. done = {} => done \subseteq {Initiator}
             BY DEF Init
         <2>6. \A n \in done : \A m \in Topology[n] : m \in visited
             BY DEF Init
