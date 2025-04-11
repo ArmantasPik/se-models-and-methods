@@ -1,4 +1,4 @@
---------------------------- MODULE EchoProof ---------------------------
+--------------------------- MODULE Echo_Proof ---------------------------
 EXTENDS Echo, TLAPS
 
 ASSUME ParentOK ==
