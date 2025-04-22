@@ -21,8 +21,7 @@ PROOF
         <2> SUFFICES ASSUME TypeOK, Next PROVE TypeOK'
             BY DEFS Next, TypeOK
             <2>1. CASE InitiatorSend
-                BY <2>1, TypeOK, InitiatorInNodes, NoSelfLoops
-                DEF InitiatorSend, TypeOK
+                BY <2>1, TypeOK, InitiatorInNodes, NoSelfLoops DEF InitiatorSend, TypeOK
             <2>2. CASE \E n \in Nodes \ {Initiator} : FirstReceive(n)
                 BY <2>2, TypeOK, NoSelfLoops DEF FirstReceive, TypeOK
             <2>3. CASE \E n \in Nodes : SendAck(n)
